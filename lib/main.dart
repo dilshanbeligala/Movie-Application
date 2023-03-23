@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_application/screens/movie_page.dart';
 
 import 'package:movie_application/screens/home_page.dart';
+import 'package:movie_application/screens/new.dart';
 
 void main() {
   runApp(const MyApp());

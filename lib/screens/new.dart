@@ -3,16 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_application/screens/movie_page.dart';
 
-class Home_Page extends StatefulWidget {
-  const Home_Page({super.key});
+class Home_Page1 extends StatefulWidget {
+  const Home_Page1({super.key});
 
   @override
-  State<Home_Page> createState() => _Home_PageState();
+  State<Home_Page1> createState() => _Home_Page1State();
 }
 
-class _Home_PageState extends State<Home_Page> {
+class _Home_Page1State extends State<Home_Page1> {
   List<dynamic> movieList = [];
   List<dynamic> seriesList = [];
+  List<dynamic> filteredMovieList = [];
+  List<dynamic> filteredSeriesList = [];
 
   @override
   void initState() {
@@ -53,6 +55,20 @@ class _Home_PageState extends State<Home_Page> {
     }
   }
 
+  void searchMoviesAndSeries(String input) {
+    setState(() {
+      filteredMovieList = movieList
+          .where((movie) =>
+              movie['Title'].toLowerCase().contains(input.toLowerCase()))
+          .toList();
+
+      filteredSeriesList = seriesList
+          .where((series) =>
+              series['Title'].toLowerCase().contains(input.toLowerCase()))
+          .toList();
+    });
+  }
+
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -73,30 +89,53 @@ class _Home_PageState extends State<Home_Page> {
             Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: Container(
-                  margin: EdgeInsets.only(
-                      top: screenHeight * 0.01, bottom: screenHeight * 0.01),
-                  width: MediaQuery.of(context).size.width,
-                  height: screenHeight * 0.08,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                margin: EdgeInsets.only(
+                    top: screenHeight * 0.01, bottom: screenHeight * 0.01),
+                width: MediaQuery.of(context).size.width,
+                height: screenHeight * 0.08,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextFormField(
+                  onChanged: searchMoviesAndSeries,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    hintText: "Search Movies & Series here....",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: screenWidth * 0.06,
+                      color: Color.fromARGB(255, 5, 5, 5),
+                    ),
                   ),
-                  child: TextFormField(
-                    // onChanged: ((value) => updateList(value)),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        hintText: "Search Movies & Series here....",
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: filteredMovieList.length,
+                  itemBuilder: (context, index) => ListTile(
+                        contentPadding: EdgeInsets.all(8.0),
+                        title: Text(
+                          filteredMovieList[index].district!,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: screenWidth * 0.06,
-                          color: Color.fromARGB(255, 5, 5, 5),
-                        )),
-                  )),
+                        onTap: (() {
+                          //  Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: ((context) => Donation_page())));
+                        }),
+                      )),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -150,34 +189,14 @@ class _Home_PageState extends State<Home_Page> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => Movie(
-                                  name: seriesList[index]['Title'],
-                                  description: "",
-                                  poster: seriesList[index]['Poster'],
-                                  rdate: seriesList[index]['Year'])));
-                    },
-                    child: Card(
-                      elevation: 6,
-                      child: Image.network(
-                        seriesList[index]['Poster'],
-                        alignment: Alignment.topLeft,
-                        height: 200,
-                      ),
+                  return Card(
+                    elevation: 6,
+                    child: Image.network(
+                      seriesList[index]['Poster'],
+                      alignment: Alignment.topLeft,
+                      height: 200,
                     ),
                   );
-                  // return Card(
-                  //   elevation: 6,
-                  //   child: Image.network(
-                  //     seriesList[index]['Poster'],
-                  //     alignment: Alignment.topLeft,
-                  //     height: 200,
-                  //   ),
-                  // );
                 },
                 itemCount: seriesList == null ? 0 : seriesList.length,
               ),

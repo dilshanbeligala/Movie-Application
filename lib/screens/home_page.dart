@@ -45,33 +45,6 @@ class _Home_PageState extends State<Home_Page> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),
-              // child: Container(
-              //     margin: EdgeInsets.only(
-              //         top: screenHeight * 0.01, bottom: screenHeight * 0.01),
-              //     width: MediaQuery.of(context).size.width,
-              //     height: screenHeight * 0.06,
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //       color: Colors.white,
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              // child: TextFormField(
-              //   autofocus: false,
-
-              //   // onChanged: ((value) => updateList(value)),
-              //   decoration: InputDecoration(
-              //       hintText: "Search Movies & Series here....",
-              //       hintStyle: GoogleFonts.inter(
-              //           color: Color.fromARGB(255, 0, 0, 0),
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 17),
-              //       //
-              //       prefixIcon: Icon(
-              //         Icons.search,
-              //         size: screenWidth * 0.05,
-              //         color: Color.fromARGB(255, 5, 5, 5),
-              //       )),
-              // )),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -81,21 +54,34 @@ class _Home_PageState extends State<Home_Page> {
                   Text(
                     "Movies",
                     style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
-                    "See All ->",
-                    style: GoogleFonts.inter(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => SearchList()));
+                    },
+                    child: Text(
+                      "See All ->",
+                      style: GoogleFonts.inter(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(height: 250, width: 360, child: MovieListView()),
+            SizedBox(
+              height: 10,
+            ),
+            // ignore: sized_box_for_whitespace
+            Container(height: 250, width: 360, child: const MovieListView()),
+            SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -104,21 +90,28 @@ class _Home_PageState extends State<Home_Page> {
                   Text(
                     "Sereis",
                     style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
-                    "See All ->",
-                    style: GoogleFonts.inter(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      "See All ->",
+                      style: GoogleFonts.inter(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
                   )
                 ],
               ),
             ),
-            Container(height: 250, width: 360, child: SeriesListView()),
+            SizedBox(
+              height: 10,
+            ),
+            // ignore: sized_box_for_whitespace
+            Container(height: 250, width: 360, child: const SeriesListView()),
           ],
         ),
       ]),

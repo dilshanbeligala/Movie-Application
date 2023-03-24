@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_application/screens/movie_page.dart';
+import 'package:movie_application/screens/components/movie_list.dart';
+import 'package:movie_application/screens/components/series_list.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({super.key});
@@ -11,48 +11,7 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
-  List<dynamic> movieList = [];
-  List<dynamic> seriesList = [];
-
   @override
-  void initState() {
-    super.initState();
-    getMovieData();
-    getSeriesData();
-  }
-
-  void getMovieData() async {
-    try {
-      var response = await Dio()
-          .get('http://www.omdbapi.com/?apikey=38f4414c&type=movie&s=all');
-      if (response.statusCode == 200) {
-        setState(() {
-          movieList = response.data["Search"] as List;
-        });
-      } else {
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void getSeriesData() async {
-    try {
-      var response = await Dio()
-          .get('http://www.omdbapi.com/?apikey=38f4414c&s=100&type=series');
-      if (response.statusCode == 200) {
-        setState(() {
-          seriesList = response.data["Search"] as List;
-        });
-      } else {
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -85,12 +44,16 @@ class _Home_PageState extends State<Home_Page> {
                   child: TextFormField(
                     // onChanged: ((value) => updateList(value)),
                     decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromARGB(44, 0, 0, 0),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20)),
                         hintText: "Search Movies & Series here....",
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
+                        hintStyle: GoogleFonts.inter(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                        //
                         prefixIcon: Icon(
                           Icons.search,
                           size: screenWidth * 0.06,
@@ -108,28 +71,15 @@ class _Home_PageState extends State<Home_Page> {
                     style: GoogleFonts.inter(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Text("See All >")
+                  Text(
+                    "See All ->",
+                    style: GoogleFonts.inter(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             ),
-            Container(
-              height: 250,
-              width: 360,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 6,
-                    child: Image.network(
-                      movieList[index]['Poster'],
-                      alignment: Alignment.topLeft,
-                      height: 200,
-                    ),
-                  );
-                },
-                itemCount: movieList == null ? 0 : movieList.length,
-              ),
-            ),
+            Container(height: 250, width: 360, child: MovieListView()),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -140,48 +90,15 @@ class _Home_PageState extends State<Home_Page> {
                     style: GoogleFonts.inter(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Text("See All >")
+                  Text(
+                    "See All ->",
+                    style: GoogleFonts.inter(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             ),
-            Container(
-              height: 250,
-              width: 360,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => Movie(
-                                  name: seriesList[index]['Title'],
-                                  description: "",
-                                  poster: seriesList[index]['Poster'],
-                                  rdate: seriesList[index]['Year'])));
-                    },
-                    child: Card(
-                      elevation: 6,
-                      child: Image.network(
-                        seriesList[index]['Poster'],
-                        alignment: Alignment.topLeft,
-                        height: 200,
-                      ),
-                    ),
-                  );
-                  // return Card(
-                  //   elevation: 6,
-                  //   child: Image.network(
-                  //     seriesList[index]['Poster'],
-                  //     alignment: Alignment.topLeft,
-                  //     height: 200,
-                  //   ),
-                  // );
-                },
-                itemCount: seriesList == null ? 0 : seriesList.length,
-              ),
-            ),
+            Container(height: 250, width: 360, child: SeriesListView()),
           ],
         ),
       ]),

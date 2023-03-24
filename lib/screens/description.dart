@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Movie extends StatelessWidget {
+class Description extends StatelessWidget {
   final String name, description, poster, rdate;
 
-  const Movie(
+  const Description(
       {super.key,
       required this.name,
       required this.description,
@@ -60,6 +60,7 @@ class Movie extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              Text(description)
             ],
           ),
         ),

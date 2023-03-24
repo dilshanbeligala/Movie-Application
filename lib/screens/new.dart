@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_application/screens/movie_page.dart';
+import 'package:movie_application/screens/description.dart';
 
 class Home_Page1 extends StatefulWidget {
   const Home_Page1({super.key});

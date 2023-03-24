@@ -24,8 +24,8 @@ class _SeriesListViewState extends State<SeriesListView> {
 
   void getSeriesData() async {
     try {
-      var response = await Dio().get(
-          'http://www.omdbapi.com/?apikey=38f4414c&s=100&type=series');
+      var response = await Dio()
+          .get('http://www.omdbapi.com/?apikey=38f4414c&s=100&type=series');
       if (response.statusCode == 200) {
         setState(() {
           seriesList = response.data["Search"] as List;
@@ -68,6 +68,9 @@ class _SeriesListViewState extends State<SeriesListView> {
                   description: desData['Plot'],
                   poster: seriesList[index]['Poster'],
                   rdate: seriesList[index]['Year'],
+                  time: desData['Runtime'],
+                  id: desData['imdbID'],
+                  
                 ),
               ),
             );

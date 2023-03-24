@@ -16,6 +16,7 @@ class _Home_PageState extends State<Home_Page> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.black,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 0, 18),
@@ -25,6 +26,12 @@ class _Home_PageState extends State<Home_Page> {
             style: GoogleFonts.inter(fontSize: 30, fontWeight: FontWeight.bold),
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Icon(Icons.favorite_outline),
+          )
+        ],
       ),
       body: ListView(children: [
         Column(
@@ -35,19 +42,17 @@ class _Home_PageState extends State<Home_Page> {
                   margin: EdgeInsets.only(
                       top: screenHeight * 0.01, bottom: screenHeight * 0.01),
                   width: MediaQuery.of(context).size.width,
-                  height: screenHeight * 0.08,
+                  height: screenHeight * 0.06,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextFormField(
+                    autofocus: false,
+
                     // onChanged: ((value) => updateList(value)),
                     decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromARGB(44, 0, 0, 0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20)),
                         hintText: "Search Movies & Series here....",
                         hintStyle: GoogleFonts.inter(
                             color: Color.fromARGB(255, 0, 0, 0),
@@ -56,7 +61,7 @@ class _Home_PageState extends State<Home_Page> {
                         //
                         prefixIcon: Icon(
                           Icons.search,
-                          size: screenWidth * 0.06,
+                          size: screenWidth * 0.05,
                           color: Color.fromARGB(255, 5, 5, 5),
                         )),
                   )),
@@ -69,12 +74,16 @@ class _Home_PageState extends State<Home_Page> {
                   Text(
                     "Movies",
                     style: GoogleFonts.inter(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   Text(
                     "See All ->",
                     style: GoogleFonts.inter(
-                        fontSize: 15, fontWeight: FontWeight.bold),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   )
                 ],
               ),
@@ -88,12 +97,16 @@ class _Home_PageState extends State<Home_Page> {
                   Text(
                     "Sereis",
                     style: GoogleFonts.inter(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   Text(
                     "See All ->",
                     style: GoogleFonts.inter(
-                        fontSize: 15, fontWeight: FontWeight.bold),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   )
                 ],
               ),

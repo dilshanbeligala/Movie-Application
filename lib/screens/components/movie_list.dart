@@ -66,6 +66,9 @@ class _MovieListViewState extends State<MovieListView> {
                   description: desData['Plot'],
                   poster: movieList[index]['Poster'],
                   rdate: movieList[index]['Year'],
+                  time: desData['Runtime'],
+                  id: desData['imdbID'],
+                  
                 ),
               ),
             );

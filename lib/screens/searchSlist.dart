@@ -4,22 +4,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_application/screens/components/navbar.dart';
 import 'package:movie_application/screens/description.dart';
 
-class SearchList extends StatefulWidget {
-  const SearchList({super.key});
+class Search_SList extends StatefulWidget {
+  const Search_SList({super.key});
 
   @override
-  State<SearchList> createState() => _SearchListState();
+  State<Search_SList> createState() => _Search_SListState();
 }
 
-class _SearchListState extends State<SearchList> {
+class _Search_SListState extends State<Search_SList> {
   List<dynamic> movieList = [];
   List<dynamic> filteredMovieList = [];
   dynamic desData;
-  int _currentBottomIndex = 0;
+int _currentBottomIndex = 0;
   void _handleBottomIndexChange(int? index) {
     _currentBottomIndex = index!;
   }
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +29,7 @@ class _SearchListState extends State<SearchList> {
   void getMovieData() async {
     try {
       var response = await Dio()
-          .get('http://www.omdbapi.com/?apikey=38f4414c&type=movie&s=all');
+          .get('http://www.omdbapi.com/?apikey=38f4414c&s=100&type=series');
       if (response.statusCode == 200) {
         setState(() {
           movieList = response.data["Search"] as List;
@@ -73,7 +72,7 @@ class _SearchListState extends State<SearchList> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      bottomNavigationBar: MyBottomBar(
+       bottomNavigationBar: MyBottomBar(
           index: _currentBottomIndex, onTap: _handleBottomIndexChange),
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -103,7 +102,7 @@ class _SearchListState extends State<SearchList> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Search by movie name',
+                    hintText: 'Search by series name',
                   ),
                   onChanged: (value) => filterMovieList(value),
                 ),

@@ -6,14 +6,14 @@ import 'package:movie_application/screens/components/series_list.dart';
 import 'package:movie_application/screens/searchSlist.dart';
 import 'package:movie_application/screens/search_list.dart';
 
-class Home_Page extends StatefulWidget {
-  const Home_Page({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<Home_Page> createState() => _Home_PageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _Home_PageState extends State<Home_Page> {
+class _HomePageState extends State<HomePage> {
   int _currentBottomIndex = 0;
   void _handleBottomIndexChange(int? index) {
     _currentBottomIndex = index!;
@@ -30,7 +30,7 @@ class _Home_PageState extends State<Home_Page> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor:const Color.fromARGB(255, 0, 0, 0),
         title: Text(
           "Movies & Series",
           style: GoogleFonts.inter(fontSize: 30, fontWeight: FontWeight.bold),
@@ -61,9 +61,9 @@ class _Home_PageState extends State<Home_Page> {
                   InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => SearchList()));
+                            MaterialPageRoute(builder: (_) =>const SearchList()));
                       },
-                      child: Icon(
+                      child:const Icon(
                         Icons.search,
                         color: Colors.white,
                       )),
@@ -94,9 +94,9 @@ class _Home_PageState extends State<Home_Page> {
                   InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => Search_SList()));
+                            MaterialPageRoute(builder: (_) =>const Search_SList()));
                       },
-                      child: Icon(
+                      child:const Icon(
                         Icons.search,
                         color: Colors.white,
                       ))
